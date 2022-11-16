@@ -23,6 +23,7 @@ namespace VShop.Web.Models
 
         public string? CategoryName { get; set; }
 
+  
         [Display(Name = "Categorias")]
         public int CategoryId { get; set; }
     }

@@ -96,22 +96,25 @@ namespace VShop.Web.Services
         public async Task<ProductViewModel> UpdateProduct(ProductViewModel productVM)
         {
             var client = _clientFactory.CreateClient("ProductApi");
-            ProductViewModel productUpDate = new ProductViewModel();
-            
+            //PutTokenInHeaderAuthorization(token, client);
+
+            ProductViewModel productUpdated = new ProductViewModel();
+
             using (var response = await client.PutAsJsonAsync(apiEndpoint, productVM))
             {
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    productUpDate = await JsonSerializer
-                                .DeserializeAsync<ProductViewModel>(apiResponse, _options);
+                    productUpdated = await JsonSerializer
+                                      .DeserializeAsync<ProductViewModel>(apiResponse, _options);
                 }
                 else
                 {
                     return null;
+                    //throw new HttpRequestException(response.ReasonPhrase);
                 }
             }
-            return productUpDate;
+            return productUpdated;
         }
     }
 }
